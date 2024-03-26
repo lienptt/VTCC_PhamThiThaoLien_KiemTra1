@@ -2,6 +2,7 @@ package AddCategory;
 
 import common.BaseTest;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import org.testng.annotations.Test;
@@ -33,6 +34,12 @@ public class TC_AddCategory extends BaseTest {
         WebElement nameInput = driver.findElement(By.id("name"));
         nameInput.sendKeys("T-shirt");
 
+        driver.findElement(By.cssSelector("button[title='No Parent']")).click();
+        driver.findElement(By.xpath("(//input[@aria-label='Search'])[1]")).sendKeys("aka",Keys.ENTER);
+        Actions action = new Actions(driver);
+        action.sendKeys(Keys.ENTER).perform();
+
+
         WebElement orderingNumber = driver.findElement(By.id("order_level"));
         orderingNumber.sendKeys("2");
 
@@ -63,7 +70,7 @@ public class TC_AddCategory extends BaseTest {
     @Test
     public void assertSearchItem() {
         driver.findElement(By.xpath("//input[@id='search']")).sendKeys("T-shirt", Keys.ENTER);
-        WebElement categoryNameSearch = driver.findElement(By.xpath("(//td[contains(text(),'T-shirt')])[1]"));
+        WebElement categoryNameSearch = driver.findElement(By.xpath("(//td[contains(text(),'T-shirt')])"));
         Boolean categoryNameIsDisplayed = categoryNameSearch.isDisplayed();
         Assert.assertTrue(categoryNameIsDisplayed,"Assert Category Name is Displayed");
     }
