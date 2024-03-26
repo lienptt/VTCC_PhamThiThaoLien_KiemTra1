@@ -39,7 +39,6 @@ public class TC_AddCategory extends BaseTest {
         Actions action = new Actions(driver);
         action.sendKeys(Keys.ENTER).perform();
 
-
         WebElement orderingNumber = driver.findElement(By.id("order_level"));
         orderingNumber.sendKeys("2");
 
