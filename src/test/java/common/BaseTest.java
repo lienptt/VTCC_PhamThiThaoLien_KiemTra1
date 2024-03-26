@@ -11,6 +11,17 @@ import java.util.List;
 public class BaseTest {
     public static WebDriver driver;
 
+    public static void login(){
+        driver.get("https://cms.anhtester.com/login");
+
+        // Đăng nhập
+        WebElement emailInput = driver.findElement(By.id("email"));
+        emailInput.sendKeys("admin@example.com");
+        WebElement passwordInput = driver.findElement(By.id("password"));
+        passwordInput.sendKeys("123456");
+        WebElement loginButton = driver.findElement(By.xpath("//button[contains(text(),'Login')]"));
+        loginButton.click();
+    }
     public static void createDriver() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
