@@ -24,7 +24,7 @@ public class TC_AddCategory extends BaseTest {
     }
 
     @Test
-    public void createNewCategory() {
+    public void createNewCategory() throws InterruptedException {
         WebElement addNewCategoryButton = driver.findElement(By.xpath("//a[@class='btn btn-primary']"));
         addNewCategoryButton.click();
         WebElement addNewCategoryForm = driver.findElement(By.cssSelector(".form-horizontal"));
@@ -58,6 +58,12 @@ public class TC_AddCategory extends BaseTest {
         imageItems.get(1).click();
         WebElement buttonAddFile = driver.findElement(By.xpath("//button[normalize-space()='Add Files']"));
         buttonAddFile.click();
+        Thread.sleep(10);
+
+        driver.findElement(By.xpath("(//div[contains(text(),'Browse')])[2]")).click();
+        List<WebElement> imageItem = driver.findElements(By.cssSelector(".aiz-uploader-select"));
+        imageItem.get(1).click();
+        driver.findElement(By.xpath("//button[normalize-space()='Add Files']")).click();
 
         WebElement metaDes = driver.findElement(By.xpath("//textarea[contains(@name,'meta_description')]"));
         metaDes.sendKeys("Category Description");
@@ -67,11 +73,11 @@ public class TC_AddCategory extends BaseTest {
     }
 
     @Test
-    public void assertSearchItem() {
+    public void assertSearchItem() throws InterruptedException {
         driver.findElement(By.xpath("//input[@id='search']")).sendKeys("T-shirt", Keys.ENTER);
-        WebElement categoryNameSearch = driver.findElement(By.xpath("(//td[contains(text(),'T-shirt')])"));
-        Boolean categoryNameIsDisplayed = categoryNameSearch.isDisplayed();
-        Assert.assertTrue(categoryNameIsDisplayed,"Assert Category Name is Displayed");
+        sleep(30);
+        Boolean categoryNameIsDisplayedInSeach = driver.findElement(By.xpath("(//td[contains(text(),'T-shirt')])[1]")).isDisplayed();
+        Assert.assertTrue(categoryNameIsDisplayedInSeach);
     }
 
     @AfterMethod
